@@ -83,18 +83,18 @@ Refer [docs](./docs.pdf) for more details.
 
 ## How to run
 
-### *Creates lex.yy.c*
+*Creates lex.yy.c*
 > 
     lex BMM_Scanner.l
 
-### *Creates y.tab.h and y.tab.c*
+*Creates y.tab.h and y.tab.c*
 >
     yacc -d BMM_Parser.y
 
-### *Compile/links the .c files*
+*Compile/links the .c files*
 >
     cc lex.yy.c y.tab.c -o run
-### *Runs the .exe file with input.txt passed as argument*
+*Runs the .exe file with input.txt passed as argument*
 >
     ./run input.txt
 
