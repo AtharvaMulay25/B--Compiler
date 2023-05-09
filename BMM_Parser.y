@@ -236,3 +236,73 @@ int_var_const:
         INT
         |int_var
 ;
+relational_expr:
+                arithmetic_expr                
+                |relational_expr GE relational_expr
+                |relational_expr GT relational_expr
+                |relational_expr LE relational_expr
+                |relational_expr LT relational_expr
+                |relational_expr EQ relational_expr
+                |relational_expr NE relational_expr
+;               
+                
+arithmetic_expr:
+                term1
+                |arithmetic_expr '*' arithmetic_expr
+                |arithmetic_expr '/' arithmetic_expr
+                |arithmetic_expr '+' arithmetic_expr
+                |arithmetic_expr '-' arithmetic_expr
+;
+term1:
+        '-' term1
+        |term2
+;
+term2:
+        term2 '^' term2
+        |'(' logic_expr ')'
+        |int_var
+        |single_pre_var
+        |double_pre_var
+        |FLOAT
+        |INT
+;
+%%
+
+void yyerror(char *s) {
+        status = 1;
+    fprintf(stderr, "line %d: %s\n",yylineno,s);
+}
+
+int main(int argc, char *argv[]) {
+        lineNums = (int*) calloc(10000, sizeof(int));
+        gosubLineNums = (int*) calloc(10000, sizeof(int));
+        retLineNums = (int*) calloc(10000, sizeof(int));
+        yyin=fopen(argv[1],"r");
+        if (!checkLinesOrder(yyin))
+                return 0;
+        fclose(yyin);
+        yyin=fopen(argv[1],"r");
+        yylineno=1;
+        yyparse();
+        int found = 0;
+        if(retInd==0){
+                found=1;
+        }
+        for(int j=0; j<gosubInd; j++)
+        {
+                if(retLineNums[0]>=gosubLineNums[j] && gosubLineNums[j]>0) found = 1;
+        }
+        if(!found) yyerror("FATAL ERROR: There is no corrrespoding GOSUB statement for the RETURN statemnt.");
+        for(int i=0;i<retInd-1;i++)
+        {
+                found = 0;
+                for(int j=0; j<gosubInd; j++)
+                {
+                        if(retLineNums[i]<gosubLineNums[j] && retLineNums[i+1]>=gosubLineNums[j] && gosubLineNums[j]>0) found = 1;
+                }
+                if(!found) yyerror("FATAL ERROR: There is no corrrespoding GOSUB statement for the RETURN statemnt.");
+        }
+        if(!status) printf("\n=================================PROGRAM PARSED SUCCESSFULLY.===================================\n");
+    return 0;
+}
+
