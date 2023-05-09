@@ -51,3 +51,27 @@ REM[^\n]*\n         {
                         else return STRING_LITERAL;
                     }
 ,   {return ',';}
+\t      {yyerror("Tabs not allowed in the language");}
+[ ]     {;}
+[\n]    {
+    yylineno++;
+    return '\n';}
+[=]       {return EQ;}
+[<][>]      {return NE;}
+[<]       {return LT;}
+[<][=]      {return LE;}
+[>]       {return GT;}
+[>][=]      {return GE;}
+[-+*/]      {return *yytext;}
+NOT     {return NOT;}
+AND     {return AND;}
+XOR     {return XOR;}
+OR      {return OR;}
+[.]     {yyerror("undefined character");}
+
+%%
+
+int yywrap(void)
+{
+    return 1;
+}
