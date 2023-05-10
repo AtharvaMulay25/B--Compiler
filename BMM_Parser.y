@@ -229,8 +229,8 @@ string_var:
         |UPPER_DIGIT  '$'
 ;
 access_list:
-        '(' int_var_const ')'
-        | '(' int_var_const ',' int_var_const ')'
+        '(' arithmetic_expr ')'
+        | '(' arithmetic_expr ',' arithmetic_expr ')'
 ;
 int_var_const:
         INT
