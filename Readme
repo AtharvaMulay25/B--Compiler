@@ -1,0 +1,19 @@
+WE have created a compiler for the given B-- Language
+The steps to run the code
+step 1 ~$ lex b--.l  
+step 2 ~$ yacc -d b--.y
+step 3 ~$ cc lex.yy.c y.tab.c -o run
+step 4 ~$ ./run input.txt
+
+combined statements to run the code:
+lex b--.l;yacc -d b--.y;cc lex.yy.c y.tab.c -o run;./run input.txt
+
+ASSUMPTIONS:
+For every Return statement, there must be a corresponding GOSUB statement but the converse need not be true.
+
+NOTE: 
+name of the source file should be given as command line argument
+If no file is given program may behave unexpectedly
+basic lexical anylser in b--.l
+Syntax anylser in b--.y
+The Language requires that all characters be in upper case
