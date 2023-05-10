@@ -63,6 +63,7 @@ REM[^\n]*\n         {
 [>]       {return GT;}
 [>][=]      {return GE;}
 [-+*/]      {return *yytext;}
+"^"         {return '^';}
 NOT     {return NOT;}
 AND     {return AND;}
 XOR     {return XOR;}
