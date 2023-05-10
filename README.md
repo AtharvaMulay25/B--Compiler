@@ -101,4 +101,4 @@ Refer [docs](./docs.pdf) for more details.
 Note: If you have flex and bison installed in your system, then replace **lex** with **flex** and **yacc** with **bison** in all above commands and/or **cc** with **gcc**.
 ### Combined statements to run the code:
 >
-    lex b--.l;yacc -d b--.y;cc lex.yy.c y.tab.c -o run;./run input.txt
+    lex BMM_Scanner.l;yacc -d BMM_Parser.y;cc lex.yy.c y.tab.c -o run;./run input.txt
