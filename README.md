@@ -82,6 +82,7 @@ Refer [docs](./docs.pdf) for more details.
 
 
 ## How to run
+First put the .bmm program (which needs to be parse) in input.txt and save the file.
 
 *Creates lex.yy.c*
 > 
